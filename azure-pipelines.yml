@@ -22,7 +22,7 @@ stages:
         appc login --username "$(APPC_USER)" --password "$(APPC_PASS)" --org-id "$(APPC_ORG)"
       displayName: 'Login to Appcelerator'
     - script: |
-        appc ti sdk install latest
+        echo "y" | appc ti sdk install latest
       displayName: 'Install latest Titanium SDK'
     - script: |
         appc run -p ios --build-only
@@ -47,7 +47,7 @@ stages:
         appc login --username "$(APPC_USER)" --password "$(APPC_PASS)" --org-id "$(APPC_ORG)"
       displayName: 'Login to Appcelerator'
     - script: |
-        appc ti sdk install latest
+        echo "y" | appc ti sdk install latest
       displayName: 'Install latest Titanium SDK'
     - script: |
         appc run -p android --build-only
