@@ -54,5 +54,5 @@ stages:
         perl -pi -e 's/android:debuggable="false"/android:debuggable="true"/g' tiapp.xml
       displayName: 'Active Android Debug mode'
     - script: |
-        appc run -p android --build-only
+        titanium build -p android --build-only
       displayName: 'Build the Android app'
