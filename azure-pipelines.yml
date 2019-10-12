@@ -1,0 +1,42 @@
+name: Create DEV builds
+trigger:
+- develop
+
+stages:
+- stage: BuildIos
+  displayName: Build for iOS
+  jobs:
+  - job: Build
+    displayName: Build the app
+    pool:
+      vmImage: 'macOS-10.14'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+    - script: |
+        npm install appc
+      displayName: 'Install the Appcelerator CLI'
+    - script: |
+        appc run -p ios --build-only
+      displayName: 'Build the iOS app'
+
+- stage: BuildAndroid
+  displayName: Build for Android
+  jobs:
+  - job: Build
+    displayName: Build the app
+    pool:
+      vmImage: 'macOS-10.14'
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+    - script: |
+        npm install appc
+      displayName: 'Install the Appcelerator CLI'
+    - script: |
+        appc run -p android --build-only
+      displayName: 'Build the Android app'
