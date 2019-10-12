@@ -44,11 +44,11 @@ stages:
         npm install -g appcelerator
       displayName: 'Install the Appcelerator CLI'
     - script: |
-        appc ti sdk install latest
-      displayName: 'Install latest Titanium SDK'
-    - script: |
         appc login --username "$(APPC_USER)" --password "$(APPC_PASS)" --org-id "$(APPC_ORG)"
       displayName: 'Login to Appcelerator'
+    - script: |
+        appc ti sdk install latest
+      displayName: 'Install latest Titanium SDK'
     - script: |
         appc run -p android --build-only
       displayName: 'Build the Android app'
