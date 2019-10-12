@@ -16,16 +16,13 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
     - script: |
-        npm install -g appcelerator
-      displayName: 'Install the Appcelerator CLI'
+        npm install -g titanium
+      displayName: 'Install the Titanium CLI'
     - script: |
-        appc login --username "$(APPC_USER)" --password "$(APPC_PASS)" --org-id "$(APPC_ORG)"
-      displayName: 'Login to Appcelerator'
-    - script: |
-        echo "y" | appc ti sdk install latest
+        echo "y" | titanium sdk install latest
       displayName: 'Install latest Titanium SDK'
     - script: |
-        appc run -p ios --build-only
+        titanium build -p ios --build-only
       displayName: 'Build the iOS app'
 
 - stage: BuildAndroid
@@ -41,13 +38,10 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
     - script: |
-        npm install -g appcelerator
-      displayName: 'Install the Appcelerator CLI'
+        npm install -g titanium
+      displayName: 'Install the Titanium CLI'
     - script: |
-        appc login --username "$(APPC_USER)" --password "$(APPC_PASS)" --org-id "$(APPC_ORG)"
-      displayName: 'Login to Appcelerator'
-    - script: |
-        echo "y" | appc ti sdk install latest
+        echo "y" | titanium sdk install latest
       displayName: 'Install latest Titanium SDK'
     - script: |
         appc run -p android --build-only
