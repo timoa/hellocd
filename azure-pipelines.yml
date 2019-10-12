@@ -22,6 +22,9 @@ stages:
         echo "y" | titanium sdk install latest
       displayName: 'Install latest Titanium SDK'
     - script: |
+        perl -pi -e 's/<guid>xxx/<guid>$(TIAPP_GUID)/g' tiapp.xml
+      displayName: 'Add the App GUID'
+    - script: |
         titanium build -p ios --build-only
       displayName: 'Build the iOS app'
 
@@ -44,6 +47,12 @@ stages:
     - script: |
         echo "y" | titanium sdk install latest
       displayName: 'Install latest Titanium SDK'
+    - script: |
+        perl -pi -e 's/<guid>xxx/<guid>$(TIAPP_GUID)/g' tiapp.xml
+      displayName: 'Add the App GUID'
+    - script: |
+        perl -pi -e 's/android:debuggable="false"/android:debuggable="true"/g' tiapp.xml
+      displayName: 'Active Android Debug mode'
     - script: |
         appc run -p android --build-only
       displayName: 'Build the Android app'
