@@ -1,4 +1,4 @@
-name: Create DEV builds
+name: DEV Builds
 trigger:
 - develop
 
@@ -16,8 +16,11 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
     - script: |
-        npm install appc
+        npm install -g appcelerator
       displayName: 'Install the Appcelerator CLI'
+    - script: |
+        appc ti sdk install latest
+      displayName: 'Install latest Titanium SDK'
     - script: |
         appc run -p ios --build-only
       displayName: 'Build the iOS app'
@@ -35,8 +38,11 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
     - script: |
-        npm install appc
+        npm install -g appcelerator
       displayName: 'Install the Appcelerator CLI'
+    - script: |
+        appc ti sdk install latest
+      displayName: 'Install latest Titanium SDK'
     - script: |
         appc run -p android --build-only
       displayName: 'Build the Android app'
