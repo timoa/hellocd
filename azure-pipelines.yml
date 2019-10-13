@@ -3,6 +3,56 @@ trigger:
 - develop
 
 stages:
+- stage: Init
+  displayName: Init
+  jobs:
+  - job: Setup
+    displayName: App Setup
+    pool:
+      vmImage: ubuntu-18.04
+    steps:
+    - script: |
+        perl -pi -e 's/<version>[\d\.]+<\/version>/<version>1.0.$(Build.BuildNumber)<\/version>/g' tiapp.xml
+      displayName: 'Set the build version'
+
+- stage: UnitTests
+  displayName: Tests
+  jobs:
+  - job: Tests
+    displayName: 'Tests'
+    pool:
+      vmImage: ubuntu-18.04
+    steps:
+    - script: |
+        pwd
+      displayName: 'Run unit-tests'
+
+- stage: CodeAnalysis
+  displayName: Code Analysis
+  dependsOn: []
+  jobs:
+  - job: SonarCloud
+    displayName: 'SonarCloud'
+    pool:
+      vmImage: ubuntu-18.04
+    steps:
+    - script: |
+        pwd
+      displayName: 'Run SonarCloud analysis'
+
+- stage: SecurityAnalysis
+  displayName: Security Analysis
+  dependsOn: []
+  jobs:
+  - job: Snyk
+    displayName: 'Snyk'
+    pool:
+      vmImage: ubuntu-18.04
+    steps:
+    - script: |
+        pwd
+      displayName: 'Run Snyk analysis'
+
 - stage: BuildIos
   displayName: Build for iOS
   jobs:
