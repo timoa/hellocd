@@ -3,7 +3,7 @@
   xmlns:ti="http://ti.appcelerator.org">
   <id>com.timoa.hellocd</id>
   <name>HelloCD</name>
-  <version>0.1</version>
+  <version>1.0</version>
   <publisher>Timoa</publisher>
   <url>http://hellocd.org</url>
   <description/>
@@ -61,7 +61,4 @@
   <plugins>
     <plugin version="1.0">ti.alloy</plugin>
   </plugins>
-  <property name="appc-app-id" type="string">xxx</property>
-  <property name="appc-org-id" type="string">xxx</property>
-  <property name="appc-creator-user-id" type="string">xxx</property>
 </ti:app>
