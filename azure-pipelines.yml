@@ -19,8 +19,8 @@ stages:
         rm -rf node_modules && npm install -g npm@latest && npm i core-util-is
       displayName: 'Cleanup pre-installed NPM dependencies'
     - script: |
-        npm install -g titanium
-      displayName: 'Install the Titanium CLI'
+        npm install -g titanium alloy
+      displayName: 'Install the Titanium CLI + Alloy'
     - script: |
         echo "y" | titanium sdk install latest
       displayName: 'Install latest Titanium SDK'
@@ -51,8 +51,8 @@ stages:
         rm -rf node_modules && npm install -g npm@latest && npm i core-util-is
       displayName: 'Cleanup pre-installed NPM dependencies'
     - script: |
-        npm install -g titanium
-      displayName: 'Install the Titanium CLI'
+        npm install -g titanium alloy
+      displayName: 'Install the Titanium CLI + Alloy'
     - script: |
         echo "y" | titanium sdk install latest
       displayName: 'Install latest Titanium SDK'
