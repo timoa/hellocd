@@ -29,7 +29,7 @@ stages:
 
 - stage: CodeAnalysis
   displayName: Code Analysis
-  dependsOn: []
+  dependsOn: [Init]
   jobs:
   - job: SonarCloud
     displayName: 'SonarCloud'
@@ -42,7 +42,7 @@ stages:
 
 - stage: SecurityAnalysis
   displayName: Security Analysis
-  dependsOn: []
+  dependsOn: [Init]
   jobs:
   - job: Snyk
     displayName: 'Snyk'
@@ -55,6 +55,10 @@ stages:
 
 - stage: BuildIos
   displayName: Build for iOS
+  dependsOn: 
+  - Init
+  - CodeAnalysis
+  - SecurityAnalysis
   jobs:
   - job: Build
     displayName: Build the app
@@ -84,7 +88,10 @@ stages:
 
 - stage: BuildAndroid
   displayName: Build for Android
-  dependsOn: []
+  dependsOn: 
+  - Init
+  - CodeAnalysis
+  - SecurityAnalysis
   jobs:
   - job: Build
     displayName: Build the app
