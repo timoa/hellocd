@@ -27,6 +27,10 @@ stages:
     - script: |
         titanium build -p ios --build-only
       displayName: 'Build the iOS app'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        path: $(System.DefaultWorkingDirectory)/build/iphone/build/Products/Debug-iphonesimulator/HelloCD.app
+        artifact: HellocdIos
 
 - stage: BuildAndroid
   displayName: Build for Android
@@ -59,3 +63,7 @@ stages:
     - script: |
         titanium build -p android --build-only
       displayName: 'Build the Android app'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        path: $(System.DefaultWorkingDirectory)/build/android/bin/HelloCD.apk
+        artifact: HellocdAndroid
