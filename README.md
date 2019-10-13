@@ -1,5 +1,7 @@
 # WIP - HelloCD
 
+[![Build Status][azure-pipeline-badge]][azure-pipeline-url]
+
 An iOS and Android app that provides status of pipelines on multiple CI/CD servers compatible with the [CCTray][cctray-specs] format
 
 ## Compatible CI/CD servers
@@ -19,6 +21,8 @@ An iOS and Android app that provides status of pipelines on multiple CI/CD serve
 
 More information on the [CCTray website][cctray-specs]
 
+[azure-pipeline-badge]: https://dev.azure.com/timoa/HelloCD/_apis/build/status/DEV.build?branchName=master
+[azure-pipeline-url]: https://dev.azure.com/timoa/HelloCD/_build/latest?definitionId=1&branchName=master
 [cctray-specs]: https://cctray.org/
 [buildkite-website]: https://buildkite.com/
 [buddybuild-website]: https://www.buddybuild.com/
