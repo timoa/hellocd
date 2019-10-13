@@ -40,7 +40,7 @@ stages:
   - job: Build
     displayName: Build the app
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: 'ubuntu-18.04'
     steps:
     - task: NodeTool@0
       inputs:
