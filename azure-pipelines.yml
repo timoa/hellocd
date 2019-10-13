@@ -126,7 +126,7 @@ stages:
         artifact: HellocdAndroid
 
 - stage: UiTestsIos
-  displayName: UI Tests iOS
+  displayName: iOS UI Tests
   dependsOn: 
   - IosBuild
   jobs:
@@ -140,7 +140,7 @@ stages:
       displayName: 'Run Appium UI Tests'
 
 - stage: UiTestsAndroid
-  displayName: UI Tests Android
+  displayName: Android UI Tests
   dependsOn: 
   - AndroidBuild
   jobs:
