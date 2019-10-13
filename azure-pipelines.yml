@@ -53,15 +53,15 @@ stages:
         pwd
       displayName: 'Run Snyk analysis'
 
-- stage: BuildIos
-  displayName: Build for iOS
+- stage: IosBuild
+  displayName: iOS Build
   dependsOn: 
   - Init
   - CodeAnalysis
   - SecurityAnalysis
   jobs:
   - job: Build
-    displayName: Build the app
+    displayName: Build the iOS app
     pool:
       vmImage: macOS-10.14
     steps:
@@ -86,8 +86,8 @@ stages:
         path: $(System.DefaultWorkingDirectory)/build/iphone/build/Products/Debug-iphonesimulator
         artifact: HellocdIos
 
-- stage: BuildAndroid
-  displayName: Build for Android
+- stage: AndroidBuild
+  displayName: Android Build
   dependsOn: 
   - Init
   - CodeAnalysis
@@ -128,7 +128,7 @@ stages:
 - stage: UiTestsIos
   displayName: UI Tests iOS
   dependsOn: 
-  - BuildIos
+  - IosBuild
   jobs:
   - job: AppiumIos
     displayName: 'Appium UI Tests'
@@ -142,7 +142,7 @@ stages:
 - stage: UiTestsAndroid
   displayName: UI Tests Android
   dependsOn: 
-  - BuildAndroid
+  - AndroidBuild
   jobs:
   - job: AppiumAndroid
     displayName: 'Appium UI Tests'
