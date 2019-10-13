@@ -14,6 +14,10 @@ stages:
     - script: |
         perl -pi -e 's/<version>[\d\.]+<\/version>/<version>1.0.$(Build.BuildNumber)<\/version>/g' tiapp.xml
       displayName: 'Set the build version'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        path: $(System.DefaultWorkingDirectory)
+        artifact: HellocdSources
 
 - stage: UnitTests
   displayName: Tests
