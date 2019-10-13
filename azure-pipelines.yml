@@ -53,8 +53,8 @@ stages:
         pwd
       displayName: 'Run Snyk analysis'
 
-- stage: IosBuild
-  displayName: iOS Build
+- stage: IosDevBuild
+  displayName: iOS Dev Build
   dependsOn: 
   - Init
   - CodeAnalysis
@@ -84,10 +84,10 @@ stages:
     - task: PublishPipelineArtifact@1
       inputs:
         path: $(System.DefaultWorkingDirectory)/build/iphone/build/Products/Debug-iphonesimulator
-        artifact: HellocdIos
+        artifact: HellocdDevIos
 
-- stage: AndroidBuild
-  displayName: Android Build
+- stage: AndroidDevBuild
+  displayName: Android Dev Build
   dependsOn: 
   - Init
   - CodeAnalysis
@@ -123,12 +123,12 @@ stages:
     - task: PublishPipelineArtifact@1
       inputs:
         path: $(System.DefaultWorkingDirectory)/build/android/bin/HelloCD.apk
-        artifact: HellocdAndroid
+        artifact: HellocdDevAndroid
 
 - stage: IosUiTests
   displayName: iOS UI Tests
   dependsOn: 
-  - IosBuild
+  - IosDevBuild
   jobs:
   - job: IosAppium
     displayName: 'Appium UI Tests'
@@ -142,7 +142,7 @@ stages:
 - stage: AndroidUiTests
   displayName: Android UI Tests
   dependsOn: 
-  - AndroidBuild
+  - AndroidDevBuild
   jobs:
   - job: AndroidAppium
     displayName: 'Appium UI Tests'
@@ -154,13 +154,13 @@ stages:
       displayName: 'Run Appium UI Tests'
 
 - stage: IosProdBuild
-  displayName: iOS Production Build
+  displayName: iOS Prod Build
   dependsOn: 
   - IosUiTests
   - AndroidUiTests
   jobs:
-  - job: IosSignedBuild
-    displayName: 'iOS Signed Build'
+  - job: IosBuildSigning
+    displayName: 'iOS Build Signing'
     pool:
       vmImage: macOS-10.14
     steps:
@@ -169,13 +169,13 @@ stages:
       displayName: 'Build the production build'
 
 - stage: AndroidProdBuild
-  displayName: Android Production Build
+  displayName: Android Prod Build
   dependsOn: 
   - IosUiTests
   - AndroidUiTests
   jobs:
-  - job: AndroidSignedBuild
-    displayName: 'Android Signed Build'
+  - job: AndroidBuildSigning
+    displayName: 'Android Build Signing'
     pool:
       vmImage: macOS-10.14
     steps:
