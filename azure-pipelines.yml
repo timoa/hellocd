@@ -54,7 +54,10 @@ stages:
         echo "y" | titanium sdk install latest
       displayName: 'Install latest Titanium SDK'
     - script: |
-        ls -la $ANDROID_HOME && titanium config android.sdkPath $ANDROID_HOME
+        ls -la $ANDROID_HOME
+      displayName: Debug $ANDROID_HOME path
+    - script: |
+        titanium config android.sdkPath $ANDROID_HOME
       displayName: 'Set the Android SDK path'
     - script: |
         perl -pi -e 's/<guid>xxx/<guid>$(TIAPP_GUID)/g' tiapp.xml
