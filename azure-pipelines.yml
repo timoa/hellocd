@@ -1,4 +1,4 @@
-name: DEV Builds
+name: HelloCD
 trigger:
 - develop
 
@@ -63,7 +63,7 @@ stages:
   - job: Build
     displayName: Build the app
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: macOS-10.14
     steps:
     - task: NodeTool@0
       inputs:
@@ -96,7 +96,7 @@ stages:
   - job: Build
     displayName: Build the app
     pool:
-      vmImage: 'macOS-10.14'
+      vmImage: macOS-10.14
     steps:
     - task: NodeTool@0
       inputs:
@@ -124,3 +124,31 @@ stages:
       inputs:
         path: $(System.DefaultWorkingDirectory)/build/android/bin/HelloCD.apk
         artifact: HellocdAndroid
+
+- stage: UiTestsIos
+  displayName: UI Tests iOS
+  dependsOn: 
+  - BuildIos
+  jobs:
+  - job: AppiumIos
+    displayName: 'Appium UI Tests'
+    pool:
+      vmImage: macOS-10.14
+    steps:
+    - script: |
+        pwd
+      displayName: 'Run Appium UI Tests'
+
+- stage: UiTestsAndroid
+  displayName: UI Tests Android
+  dependsOn: 
+  - BuildAndroid
+  jobs:
+  - job: AppiumAndroid
+    displayName: 'Appium UI Tests'
+    pool:
+      vmImage: macOS-10.14
+    steps:
+    - script: |
+        pwd
+      displayName: 'Run Appium UI Tests'
