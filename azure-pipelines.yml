@@ -29,7 +29,7 @@ stages:
       displayName: 'Build the iOS app'
     - task: PublishPipelineArtifact@1
       inputs:
-        path: $(System.DefaultWorkingDirectory)/build/iphone/build/Products/Debug-iphonesimulator/HelloCD.app
+        path: $(System.DefaultWorkingDirectory)/build/iphone/build/Products/Debug-iphonesimulator
         artifact: HellocdIos
 
 - stage: BuildAndroid
