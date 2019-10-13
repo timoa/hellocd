@@ -16,17 +16,11 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
     - script: |
-        rm -rf node_modules && npm install -g npm@latest && npm i core-util-is
-      displayName: 'Cleanup pre-installed NPM dependencies'
-    - script: |
         npm install -g titanium alloy
       displayName: 'Install the Titanium CLI + Alloy'
     - script: |
         echo "y" | titanium sdk install latest
       displayName: 'Install latest Titanium SDK'
-    - script: |
-        titanium info
-      displayName: '[Debug] Check Titanium environment'
     - script: |
         perl -pi -e 's/<guid>xxx/<guid>$(TIAPP_GUID)/g' tiapp.xml
       displayName: 'Replace the App GUID'
@@ -48,17 +42,11 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
     - script: |
-        rm -rf node_modules && npm install -g npm@latest && npm i core-util-is
-      displayName: 'Cleanup pre-installed NPM dependencies'
-    - script: |
         npm install -g titanium alloy
       displayName: 'Install the Titanium CLI + Alloy'
     - script: |
         echo "y" | titanium sdk install latest
       displayName: 'Install latest Titanium SDK'
-    - script: |
-        titanium config android.sdkPath $ANDROID_HOME
-      displayName: 'Set the Android SDK path'
     - script: |
         titanium info
       displayName: '[Debug] Check Titanium environment'
