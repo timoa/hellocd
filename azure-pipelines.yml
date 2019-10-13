@@ -154,7 +154,7 @@ stages:
       displayName: 'Run Appium UI Tests'
 
 - stage: IosProdBuild
-  displayName: iOS UI Tests
+  displayName: iOS Production Build
   dependsOn: 
   - IosUiTests
   - AndroidUiTests
@@ -169,7 +169,7 @@ stages:
       displayName: 'Build the production build'
 
 - stage: AndroidProdBuild
-  displayName: Android UI Tests
+  displayName: Android Production Build
   dependsOn: 
   - IosUiTests
   - AndroidUiTests
