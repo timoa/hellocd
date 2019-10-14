@@ -33,7 +33,7 @@ stages:
 
 - stage: CodeAnalysis
   displayName: Code Analysis
-  dependsOn: [Tests]
+  dependsOn: [UnitTests]
   jobs:
   - job: SonarCloud
     displayName: 'SonarCloud'
