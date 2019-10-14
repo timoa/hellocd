@@ -33,7 +33,7 @@ stages:
 
 - stage: CodeAnalysis
   displayName: Code Analysis
-  dependsOn: [Init]
+  dependsOn: [Tests]
   jobs:
   - job: SonarCloud
     displayName: 'SonarCloud'
@@ -59,8 +59,7 @@ stages:
 
 - stage: IosDevBuild
   displayName: iOS Dev Build
-  dependsOn: 
-  - Init
+  dependsOn:
   - CodeAnalysis
   - SecurityAnalysis
   jobs:
@@ -92,8 +91,7 @@ stages:
 
 - stage: AndroidDevBuild
   displayName: Android Dev Build
-  dependsOn: 
-  - Init
+  dependsOn:
   - CodeAnalysis
   - SecurityAnalysis
   jobs:
