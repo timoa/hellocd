@@ -23,39 +23,39 @@ stages:
   displayName: Tests
   jobs:
   - job: Tests
-    displayName: 'Tests'
+    displayName: Tests
     pool:
       vmImage: ubuntu-18.04
     steps:
     - script: |
         pwd
-      displayName: 'Run unit-tests'
+      displayName: Run unit-tests
 
 - stage: CodeAnalysis
   displayName: Code Analysis
   dependsOn: [UnitTests]
   jobs:
   - job: SonarCloud
-    displayName: 'SonarCloud'
+    displayName: SonarCloud
     pool:
       vmImage: ubuntu-18.04
     steps:
     - script: |
         pwd
-      displayName: 'Run SonarCloud analysis'
+      displayName: Run SonarCloud analysis
 
 - stage: SecurityAnalysis
   displayName: Security Analysis
   dependsOn: [Init]
   jobs:
   - job: Snyk
-    displayName: 'Snyk'
+    displayName: Snyk
     pool:
       vmImage: ubuntu-18.04
     steps:
     - script: |
         pwd
-      displayName: 'Run Snyk analysis'
+      displayName: Run Snyk analysis
 
 - stage: IosDevBuild
   displayName: iOS Dev Build
@@ -71,19 +71,19 @@ stages:
     - task: NodeTool@0
       inputs:
         versionSpec: '10.x'
-      displayName: 'Install Node.js'
+      displayName: Install Node.js
     - script: |
         npm install -g titanium alloy
-      displayName: 'Install the Titanium CLI + Alloy'
+      displayName: Install the Titanium CLI & Alloy
     - script: |
         echo "y" | titanium sdk install latest
-      displayName: 'Install latest Titanium SDK'
+      displayName: Install latest Titanium SDK
     - script: |
         perl -pi -e 's/<guid>xxx/<guid>$(TIAPP_GUID)/g' tiapp.xml
-      displayName: 'Replace the App GUID'
+      displayName: Replace the App GUID
     - script: |
         titanium build -p ios --build-only
-      displayName: 'Build the iOS app'
+      displayName: Build the iOS app
     - task: PublishPipelineArtifact@1
       inputs:
         path: $(System.DefaultWorkingDirectory)/build/iphone/build/Products/Debug-iphonesimulator
@@ -103,43 +103,40 @@ stages:
     - task: NodeTool@0
       inputs:
         versionSpec: '10.x'
-      displayName: 'Install Node.js'
+      displayName: Install Node.js
     - script: |
         npm install -g titanium alloy
-      displayName: 'Install the Titanium CLI + Alloy'
+      displayName: Install the Titanium CLI + Alloy
     - script: |
         echo "y" | titanium sdk install latest
-      displayName: 'Install latest Titanium SDK'
-    - script: |
-        titanium info
-      displayName: '[Debug] Check Titanium environment'
+      displayName: Install latest Titanium SDK
     - script: |
         perl -pi -e 's/<guid>xxx/<guid>$(TIAPP_GUID)/g' tiapp.xml
-      displayName: 'Replace the App GUID'
+      displayName: Replace the App GUID
     - script: |
         perl -pi -e 's/android:debuggable="false"/android:debuggable="true"/g' tiapp.xml
-      displayName: 'Active Android Debug mode'
+      displayName: Active Android Debug mode
     - script: |
         titanium build -p android --build-only
-      displayName: 'Build the Android app'
+      displayName: Build the Android app
     - task: PublishPipelineArtifact@1
       inputs:
         path: $(System.DefaultWorkingDirectory)/build/android/bin/HelloCD.apk
         artifact: HellocdDevAndroid
 
 - stage: IosUiTests
-  displayName: iOS UI Tests
+  displayName: 'iOS UI Tests'
   dependsOn: 
   - IosDevBuild
   jobs:
   - job: IosAppium
-    displayName: 'Appium UI Tests'
+    displayName: Appium UI Tests
     pool:
       vmImage: macOS-10.14
     steps:
     - script: |
         pwd
-      displayName: 'Run Appium UI Tests'
+      displayName: Run Appium UI Tests
 
 - stage: AndroidUiTests
   displayName: Android UI Tests
@@ -147,13 +144,13 @@ stages:
   - AndroidDevBuild
   jobs:
   - job: AndroidAppium
-    displayName: 'Appium UI Tests'
+    displayName: Appium UI Tests
     pool:
       vmImage: macOS-10.14
     steps:
     - script: |
         pwd
-      displayName: 'Run Appium UI Tests'
+      displayName: Run Appium UI Tests
 
 - stage: IosProdBuild
   displayName: iOS Prod Build
@@ -162,13 +159,13 @@ stages:
   - AndroidUiTests
   jobs:
   - job: IosBuildSigning
-    displayName: 'iOS Build Signing'
+    displayName: iOS Build Signing
     pool:
       vmImage: macOS-10.14
     steps:
     - script: |
         pwd
-      displayName: 'Build the production build'
+      displayName: Build the production build
 
 - stage: AndroidProdBuild
   displayName: Android Prod Build
@@ -177,10 +174,40 @@ stages:
   - AndroidUiTests
   jobs:
   - job: AndroidBuildSigning
-    displayName: 'Android Build Signing'
+    displayName: Android Build Signing
     pool:
       vmImage: macOS-10.14
     steps:
     - script: |
         pwd
-      displayName: 'Build the production build'
+      displayName: Build the production build
+
+- stage: IosStoreScreenshots
+  displayName: App Store Screenshots
+  dependsOn:
+  - IosUiTests
+  - IosProdBuild
+  jobs:
+  - job: CreateScreenshots
+    displayName: Create screenshots
+    pool:
+      vmImage: ubuntu-18.04
+    steps:
+    - script: |
+        pwd
+      displayName: Create screenshots
+
+- stage: AndroidStoreScreenshots
+  displayName: GPlay Screenshots
+  dependsOn:
+  - AndroidUiTests
+  - AndroidProdBuild
+  jobs:
+  - job: CreateScreenshots
+    displayName: Create screenshots
+    pool:
+      vmImage: ubuntu-18.04
+    steps:
+    - script: |
+        pwd
+      displayName: Create screenshots
