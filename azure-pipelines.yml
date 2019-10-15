@@ -185,7 +185,6 @@ stages:
 - stage: IosStoreScreenshots
   displayName: App Store Screenshots
   dependsOn:
-  - IosUiTests
   - IosProdBuild
   jobs:
   - job: CreateScreenshots
@@ -200,7 +199,6 @@ stages:
 - stage: AndroidStoreScreenshots
   displayName: GPlay Screenshots
   dependsOn:
-  - AndroidUiTests
   - AndroidProdBuild
   jobs:
   - job: CreateScreenshots
